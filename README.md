@@ -1,9 +1,10 @@
-# Berrycrawl PHP Library
+# Berrycrawl PHP SDK
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Berrycrawl%2FPHP)
 [![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/strawberry-labs/berrycrawl)
 
-The Berrycrawl PHP library provides convenient access to the Berrycrawl APIs from PHP.
+The official PHP SDK for scraping, crawling, searching, mapping, structured extraction, screenshots, and brand profiles.
+
+[Documentation](https://docs.berrycrawl.com) · [Dashboard](https://app.berrycrawl.com) · [GitHub](https://github.com/strawberry-labs/berrycrawl-php)
 
 ## Table of Contents
 
@@ -30,25 +31,45 @@ composer require strawberry-labs/berrycrawl
 
 ## Usage
 
-Instantiate and use the client with the following:
+Set `BERRYCRAWL_API_KEY` to an API key from the [Berrycrawl dashboard](https://app.berrycrawl.com).
 
 ```php
 <?php
 
-namespace Example;
-
 use Berrycrawl\Berrycrawl;
+use Berrycrawl\Requests\ScrapeDto;
+
+$client = new Berrycrawl(apiKey: getenv('BERRYCRAWL_API_KEY'));
+$page = $client->scrape(new ScrapeDto([
+    'url' => 'https://example.com/pricing',
+]));
+```
+
+### Crawl and search
+
+```php
+use Berrycrawl\Requests\CrawlDto;
+use Berrycrawl\Requests\SearchDto;
+
+$job = $client->crawl(new CrawlDto([
+    'url' => 'https://example.com/docs',
+    'limit' => 50,
+]));
+
+$results = $client->search(new SearchDto([
+    'query' => 'best headless browser libraries',
+    'limit' => 10,
+]));
+```
+
+### Retrieve a brand profile
+
+```php
 use Berrycrawl\Brand\Requests\BrandDto;
 
-$client = new Berrycrawl(
-    apiKey: '<token>',
-);
-$client->brand->retrieve(
-    new BrandDto([
-        'url' => 'https://stripe.com',
-    ]),
-);
-
+$brand = $client->brand->retrieve(new BrandDto([
+    'url' => 'https://stripe.com',
+]));
 ```
 
 ## Environments
