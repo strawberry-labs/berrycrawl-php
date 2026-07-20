@@ -21,12 +21,6 @@ class SearchResponse extends JsonSerializableType
     public array $data;
 
     /**
-     * @var value-of<SearchResponseProvider> $provider
-     */
-    #[JsonProperty('provider')]
-    public string $provider;
-
-    /**
      * @var string $query
      */
     #[JsonProperty('query')]
@@ -48,7 +42,6 @@ class SearchResponse extends JsonSerializableType
      * @param array{
      *   creditsUsed: int,
      *   data: array<SearchResult>,
-     *   provider: value-of<SearchResponseProvider>,
      *   query: string,
      *   success: bool,
      *   total: int,
@@ -59,7 +52,6 @@ class SearchResponse extends JsonSerializableType
     ) {
         $this->creditsUsed = $values['creditsUsed'];
         $this->data = $values['data'];
-        $this->provider = $values['provider'];
         $this->query = $values['query'];
         $this->success = $values['success'];
         $this->total = $values['total'];

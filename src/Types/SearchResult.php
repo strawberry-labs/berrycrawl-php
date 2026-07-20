@@ -8,12 +8,6 @@ use Berrycrawl\Core\Json\JsonProperty;
 class SearchResult extends JsonSerializableType
 {
     /**
-     * @var ?value-of<SearchResultProvider> $provider
-     */
-    #[JsonProperty('provider')]
-    public ?string $provider;
-
-    /**
      * @var ?string $publishedDate
      */
     #[JsonProperty('publishedDate')]
@@ -49,14 +43,12 @@ class SearchResult extends JsonSerializableType
      *   source: string,
      *   title: string,
      *   url: string,
-     *   provider?: ?value-of<SearchResultProvider>,
      *   publishedDate?: ?string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->provider = $values['provider'] ?? null;
         $this->publishedDate = $values['publishedDate'] ?? null;
         $this->snippet = $values['snippet'];
         $this->source = $values['source'];
