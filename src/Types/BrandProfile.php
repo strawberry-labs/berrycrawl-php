@@ -9,6 +9,12 @@ use Berrycrawl\Core\Types\ArrayType;
 class BrandProfile extends JsonSerializableType
 {
     /**
+     * @var ?BrandDesignSystem $branding
+     */
+    #[JsonProperty('branding')]
+    public ?BrandDesignSystem $branding;
+
+    /**
      * @var array<BrandProfileColorsItem> $colors
      */
     #[JsonProperty('colors'), ArrayType([BrandProfileColorsItem::class])]
@@ -77,6 +83,7 @@ class BrandProfile extends JsonSerializableType
      *   logos: array<BrandAsset>,
      *   name: string,
      *   socials: array<BrandProfileSocialsItem>,
+     *   branding?: ?BrandDesignSystem,
      *   description?: ?string,
      *   language?: ?string,
      *   tagline?: ?string,
@@ -85,6 +92,7 @@ class BrandProfile extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->branding = $values['branding'] ?? null;
         $this->colors = $values['colors'];
         $this->description = $values['description'] ?? null;
         $this->domain = $values['domain'];
